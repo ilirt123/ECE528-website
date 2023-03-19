@@ -1,44 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Google Cloud API</title>
-</head>
-<body>
-  <h1>Google Cloud API</h1>
-  <form id="my-form">
-    <label for="feature_column_a">Feature Column A:</label>
-    <input type="text" id="feature_column_a" name="feature_column_a"><br>
+// Set the endpoint and project IDs
+const ENDPOINT_ID = "1049492644805214208";
+const PROJECT_ID = "ece528-website";
 
-    <label for="feature_column_b">Feature Column B:</label>
-    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+// Set the JSON data
+const data = {
+  "instances": [
+    {
+      "feature_column_a": 10,
+      "feature_column_b": "hello",
+      "feature_column_c": true
+    },
+    {
+      "feature_column_a": 5,
+      "feature_column_b": "world",
+      "feature_column_c": false
+    }
+  ]
+};
 
-    <button type="submit">Submit</button>
-  </form>
+// Set the API URL
+const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict`;
 
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script>
-    const form = document.querySelector('#my-form');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = {
-        instances: [
-          {
-            feature_column_a: form.feature_column_a.value,
-            feature_column_b: form.feature_column_b.value,
-          }
-        ]
-      };
-      const projectId = 'ece528-website';
-      const endpointId = '1049492644805214208';
-      const accessToken = 'YOUR_ACCESS_TOKEN';
-      const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${projectId}/locations/us-central1/endpoints/${endpointId}:predict`;
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      };
-      const response = await axios.post(url, data, { headers });
-      console.log(response.data);
-    });
-  </script>
-</body>
-</html>
+// Send the POST request using Fetch API
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${gapi.auth.getToken().access_token}`,
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data)
+})
+.then(response => response.json())
+.then(result => {
+  // Handle the API response here
+  console.log(result);
+})
+.catch(error => {
+  // Handle any errors here
+  console.error(error);
+});
