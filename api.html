@@ -7,10 +7,31 @@
   <body>
     <h1>Calling Vertex AI Endpoint API from HTML</h1>
     <form onsubmit="callEndpoint(event)">
-      <label for="input1">Input 1:</label>
-      <input type="number" name="input1" id="input1"><br>
-      <label for="input2">Input 2:</label>
-      <input type="number" name="input2" id="input2"><br>
+      <label for="usmers">Input 1:</label>
+      <input type="number" name="usmers" id="usmers"><br>
+      <label for="gender">Input 2:</label>
+      <input type="number" name="gender" id="gender"><br>
+      <label for="patient_type">Input 3:</label>
+      <input type="number" name="patient_type" id="patient_type"><br>
+      <label for="intubated">Input 4:</label>
+      <input type="number" name="intubated" id="intubated"><br>
+      <label for="pneumonia">Input 5:</label>
+      <input type="number" name="pneumonia" id="pneumonia"><br>
+      <label for="age">Input 6:</label>
+      <input type="number" name="age" id="age"><br>
+      <label for="clasiffication">Input 7:</label>
+      <input type="number" name="clasiffication" id="clasiffication"><br>
+      <label for="medical_type">Input 8:</label>
+      <input type="number" name="medical_type" id="medical_type"><br>
+      <label for="diabetes">Input 9:</label>
+      <input type="number" name="diabetes" id="diabetes"><br>
+      <label for="copd">Input 10:</label>
+      <input type="number" name="copd" id="copd"><br>
+      <label for="asthma">Input 11:</label>
+      <input type="number" name="asthma" id="asthma"><br>
+      <label for="inmsupr">Input 12:</label>
+      <input type="number" name="inmsupr" id="inmsupr"><br>
+     
       <!-- Repeat for all 19 inputs -->
 
       <button type="submit">Call Endpoint API</button>
@@ -22,8 +43,18 @@
       function callEndpoint(event) {
         event.preventDefault();
 
-        const input1 = document.getElementById("input1").value;
-        const input2 = document.getElementById("input2").value;
+       int input1 = document.getElementById("usmers").value;
+       int input2 = document.getElementById("gender").value;
+       int input3 = document.getElementById("patient_type").value;
+       int input4 = document.getElementById("intubated").value;
+       int input5 = document.getElementById("pneumonia").value;
+       int input6 = document.getElementById("age").value;
+       int input7 = document.getElementById("clasiffication").value;
+       int input8 = document.getElementById("medical_type").value;
+       int input9 = document.getElementById("diabetes").value;
+       int input10 = document.getElementById("copd").value;
+       int input11 = document.getElementById("asthma").value;
+       int input12 = document.getElementById("inmsupr").value;
         // Repeat for all 19 inputs
 
         fetch('https://"ece528-website".uc.gateway.dev/"1049492644805214208"', {
