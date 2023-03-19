@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Call REST API</title>
+  <script>
+    function callApi() {
+      const data = {
+        "instances": [
+          { "age": 20, "gender": "Male", "patient_type": 1, "intubated": 0, "pneumonia": 0, "clasiffication": 1, "medical_type": 1, "diabetes": 0, "copd": 0, "asthma": 0, "inmsupr": 0, "hypertension": 0, "other_disease": 0, "cardiovascular": 0, "obesity": 0, "renal_chronic": 0, "tobacco": 0, "icu": 0, "pregnancy": 0 },
+        ]
+      };
+      const options = {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer 4/0AWtgzh4SVyLh7vdAFQENMF1wkhwUKgU7UFWn3BHlV9ny-OYjGi0xZQI7XftcxnIH1qiLlA",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      };
+      fetch("https://us-central1-aiplatform.googleapis.com/v1/projects/ece528-website/locations/us-central1/endpoints/1049492644805214208:predict", options)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+    }
+  </script>
+</head>
+<body>
+  <button onclick="callApi()">Call API</button>
+</body>
+</html>
