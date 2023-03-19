@@ -84,7 +84,7 @@
       const accessToken = '4/0AWtgzh5ElIpsOWzGJWfXITmN16A4GVnGb0_HYkGS0L7GnnmGrHCLfrsVlFejeQpPxADkIg';
       const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${projectId}/locations/us-central1/endpoints/${endpointId}:predict`;
       const headers = {
-        'Authorization: Bearer $(gcloud auth print-access-token)',
+        Authorization: `Bearer ${'4/0AWtgzh5ElIpsOWzGJWfXITmN16A4GVnGb0_HYkGS0L7GnnmGrHCLfrsVlFejeQpPxADkIg'}`,
         'Content-Type': 'application/json',
       };
       const response = await axios.post(url, data, { headers });
