@@ -1,41 +1,59 @@
-// Set the endpoint and project IDs
-const ENDPOINT_ID = "1049492644805214208";
-const PROJECT_ID = "ece528-website";
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Call Google Cloud AI Platform API</title>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+      // Load the Google API client library for JavaScript
+      gapi.load('client', () => {
+        // Initialize the Google API client with your project and API key
+        gapi.client.init({
+          apiKey: 'YOUR_API_KEY',
+          projectId: 'ece528-website',
+          discoveryDocs: ["https://ml.googleapis.com/$discovery/rest?version=v1"],
+        }).then(() => {
+          // Call the REST API using the Fetch API
+          const ENDPOINT_ID = "1049492644805214208";
+          const PROJECT_ID = "ece528-website";
+          const data = {
+            "instances": [
+              {
+                "feature_column_a": 10,
+                "feature_column_b": "hello",
+                "feature_column_c": true
+              },
+              {
+                "feature_column_a": 5,
+                "feature_column_b": "world",
+                "feature_column_c": false
+              }
+            ]
+          };
+          const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict`;
 
-// Set the JSON data
-const data = {
-  "instances": [
-    {
-      "feature_column_a": 10,
-      "feature_column_b": "hello",
-      "feature_column_c": true
-    },
-    {
-      "feature_column_a": 5,
-      "feature_column_b": "world",
-      "feature_column_c": false
-    }
-  ]
-};
-
-// Set the API URL
-const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict`;
-
-// Send the POST request using Fetch API
-fetch(url, {
-  method: "POST",
-  headers: {
-    "Authorization": `Bearer ${gapi.auth.getToken().access_token}`,
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(data)
-})
-.then(response => response.json())
-.then(result => {
-  // Handle the API response here
-  console.log(result);
-})
-.catch(error => {
-  // Handle any errors here
-  console.error(error);
-});
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${gapi.auth.getToken().access_token}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => response.json())
+          .then(result => {
+            // Handle the API response here
+            console.log(result);
+          })
+          .catch(error => {
+            // Handle any errors here
+            console.error(error);
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Call Google Cloud AI Platform API</h1>
+    <p>Open the console to see the API response.</p>
+  </body>
+</html>
