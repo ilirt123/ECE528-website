@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Call REST API</title>
-  </head>
-  <body>
-    <h1>Call REST API</h1>
-    <button onclick="callApi()">Call API</button>
+<head>
+  <title>Google Cloud API</title>
+</head>
+<body>
+  <h1>Google Cloud API</h1>
+  <form id="my-form">
+    <label for="feature_column_a">Feature Column A:</label>
+    <input type="text" id="feature_column_a" name="feature_column_a"><br>
 
-    <script>
-      function callApi() {
-        var jsonData = {
-          "instances": [
-           { "age": 20, "gender": "Male", "patient_type": 1, "intubated": 0, "pneumonia": 0, "clasiffication": 1, "medical_type": 1, "diabetes": 0, "copd": 0, "asthma": 0, "inmsupr": 0, "hypertension": 0, "other_disease": 0, "cardiovascular": 0, "obesity": 0, "renal_chronic": 0, "tobacco": 0, "icu": 0, "pregnancy": 0 }
-          ]
-        };
+    <label for="feature_column_b">Feature Column B:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
 
-        var endpointId = "1049492644805214208";
-        var projectId = "ece528-website";
-        var apiUrl = "https://us-central1-aiplatform.googleapis.com/v1/projects/" + projectId + "/locations/us-central1/endpoints/" + endpointId + ":predict";
+    <button type="submit">Submit</button>
+  </form>
 
-        var accessToken = ""; // add your access token here
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", apiUrl, true);
-        xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
-        xhr.setRequestHeader("Content-Type", "application/json");
-
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-            console.log(response);
-            // do something with the response data
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    const form = document.querySelector('#my-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        instances: [
+          {
+            feature_column_a: form.feature_column_a.value,
+            feature_column_b: form.feature_column_b.value,
           }
-        };
-
-        xhr.send(JSON.stringify(jsonData));
-      }
-    </script>
-  </body>
+        ]
+      };
+      const projectId = 'ece528-website';
+      const endpointId = '1049492644805214208';
+      const accessToken = 'YOUR_ACCESS_TOKEN';
+      const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${projectId}/locations/us-central1/endpoints/${endpointId}:predict`;
+      const headers = {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      };
+      const response = await axios.post(url, data, { headers });
+      console.log(response.data);
+    });
+  </script>
+</body>
 </html>
