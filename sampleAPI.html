@@ -81,10 +81,10 @@
       };
       const projectId = 'ece528-website';
       const endpointId = '1049492644805214208';
-      const accessToken = 'YOUR_ACCESS_TOKEN';
+      const accessToken = '4/0AWtgzh5ElIpsOWzGJWfXITmN16A4GVnGb0_HYkGS0L7GnnmGrHCLfrsVlFejeQpPxADkIg';
       const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${projectId}/locations/us-central1/endpoints/${endpointId}:predict`;
       const headers = {
-        Authorization: `Bearer ${4/0AWtgzh5ElIpsOWzGJWfXITmN16A4GVnGb0_HYkGS0L7GnnmGrHCLfrsVlFejeQpPxADkIg}`,
+        'Authorization: Bearer $(gcloud auth print-access-token)',
         'Content-Type': 'application/json',
       };
       const response = await axios.post(url, data, { headers });
