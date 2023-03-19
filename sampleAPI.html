@@ -1,59 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Call Google Cloud AI Platform API</title>
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script>
-      // Load the Google API client library for JavaScript
-      gapi.load('client', () => {
-        // Initialize the Google API client with your project and API key
-        gapi.client.init({
-          apiKey: 'YOUR_API_KEY',
-          projectId: 'ece528-website',
-          discoveryDocs: ["https://ml.googleapis.com/$discovery/rest?version=v1"],
-        }).then(() => {
-          // Call the REST API using the Fetch API
-          const ENDPOINT_ID = "1049492644805214208";
-          const PROJECT_ID = "ece528-website";
-          const data = {
-            "instances": [
-              {
-                "feature_column_a": 10,
-                "feature_column_b": "hello",
-                "feature_column_c": true
-              },
-              {
-                "feature_column_a": 5,
-                "feature_column_b": "world",
-                "feature_column_c": false
-              }
-            ]
-          };
-          const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict`;
+<head>
+  <title>Google Cloud API</title>
+</head>
+<body>
+  <h1>Google Cloud API</h1>
+  <form id="my-form">
+    <label for="feature_column_a">usmers:</label>
+    <input type="text" id="feature_column_a" name="feature_column_a"><br>
 
-          fetch(url, {
-            method: "POST",
-            headers: {
-              "Authorization": `Bearer ${gapi.auth.getToken().access_token}`,
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-          })
-          .then(response => response.json())
-          .then(result => {
-            // Handle the API response here
-            console.log(result);
-          })
-          .catch(error => {
-            // Handle any errors here
-            console.error(error);
-          });
-        });
-      });
-    </script>
-  </head>
-  <body>
-    <h1>Call Google Cloud AI Platform API</h1>
-    <p>Open the console to see the API response.</p>
-  </body>
+    <label for="feature_column_b">gender:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+     <label for="feature_column_b">patient type:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+    <label for="feature_column_b">intubated:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+    <label for="feature_column_b">pneumonia:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+    <label for="feature_column_b">age:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+    <label for="feature_column_b">calsification:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+    <label for="feature_column_b">diabetes:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+     <label for="feature_column_b">medical_type:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+     <label for="feature_column_b">copd:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+    <label for="feature_column_b">asthma:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+    <label for="feature_column_b">inmsupr:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+     <label for="feature_column_b">hypertension:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+     <label for="feature_column_b">other_disease:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+     <label for="feature_column_b">cardiovascular:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+     <label for="feature_column_b">obesity:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+     <label for="feature_column_b">renal_chronic:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+     <label for="feature_column_b">tobacho:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+    
+     <label for="feature_column_b">icu:</label>
+    <input type="text" id="feature_column_b" name="feature_column_b"><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    const form = document.querySelector('#my-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        instances: [
+          {
+            feature_column_a: form.feature_column_a.value,
+            feature_column_b: form.feature_column_b.value,
+          }
+        ]
+      };
+      const projectId = 'ece528-website';
+      const endpointId = '1049492644805214208';
+      const accessToken = 'YOUR_ACCESS_TOKEN';
+      const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${projectId}/locations/us-central1/endpoints/${endpointId}:predict`;
+      const headers = {
+        Authorization: `Bearer ${4/0AWtgzh5ElIpsOWzGJWfXITmN16A4GVnGb0_HYkGS0L7GnnmGrHCLfrsVlFejeQpPxADkIg}`,
+        'Content-Type': 'application/json',
+      };
+      const response = await axios.post(url, data, { headers });
+      console.log(response.data);
+    });
+  </script>
+</body>
 </html>
