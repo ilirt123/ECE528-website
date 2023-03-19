@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Page</title>
+</head>
+<body>
+
+	<!-- Add the Dialogflow Messenger script -->
+	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+
+	<!-- Add the Dialogflow Messenger chat widget -->
+	<df-messenger
+  		intent="WELCOME"
+  		chat-title="Coolbot"
+  		agent-id="06be06ed-d1df-44cf-87da-1e2dc78a0a5b"
+  		language-code="en"
+	></df-messenger>
+
+</body>
+</html>
