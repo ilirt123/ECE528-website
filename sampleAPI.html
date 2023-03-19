@@ -1,28 +1,62 @@
+<!DOCTYPE html>
 <html>
-<head>
-  <script>
-    function callApi() {
-      const data = {
-        "instances": [
-          { "age": 20, "gender": "Male", "patient_type": 1, "intubated": 0, "pneumonia": 0, "clasiffication": 1, "medical_type": 1, "diabetes": 0, "copd": 0, "asthma": 0, "inmsupr": 0, "hypertension": 0, "other_disease": 0, "cardiovascular": 0, "obesity": 0, "renal_chronic": 0, "tobacco": 0, "icu": 0, "pregnancy": 0 },
-        ]
-      };
-      const options = {
-        method: "POST",
-        headers: {
-          "Authorization": "Bearer " + gapi.auth.getToken().access_token,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      };
-      fetch("https://us-central1-aiplatform.googleapis.com/v1/projects/ece528-website/locations/us-central1/endpoints/1049492644805214208:predict", options)
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error(error));
-    }
-  </script>
-</head>
-<body>
-  <button onclick="callApi()">Call API</button>
-</body>
+  <head>
+    <title>Call REST API</title>
+  </head>
+  <body>
+    <h1>Call REST API</h1>
+    <button onclick="callApi()">Call API</button>
+
+    <script>
+      function callApi() {
+        var jsonData = {
+          "instances": [
+            {
+              "customers": "John Doe",
+              "gender": "male",
+              "patient_type": "outpatient",
+              "intubated": false,
+              "pneumonia": true,
+              "age": 40,
+              "clasiffication": "mild",
+              "medical_type": "general",
+              "diabetes": false,
+              "copd": false,
+              "asthma": true,
+              "inmsupr": false,
+              "hypertension": true,
+              "other_disease": false,
+              "cardiovascular": false,
+              "obesity": true,
+              "renal_chronic": false,
+              "tobacco": true,
+              "icu": false,
+              "pregnancy": false
+            }
+          ]
+        };
+
+        var endpointId = "1049492644805214208";
+        var projectId = "ece528-website";
+        var apiUrl = "https://us-central1-aiplatform.googleapis.com/v1/projects/" + projectId + "/locations/us-central1/endpoints/" + endpointId + ":predict";
+
+        var accessToken = ""; // add your access token here
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", apiUrl, true);
+        xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            console.log(response);
+            // do something with the response data
+          }
+        };
+
+        xhr.send(JSON.stringify(jsonData));
+      }
+    </script>
+  </body>
 </html>
