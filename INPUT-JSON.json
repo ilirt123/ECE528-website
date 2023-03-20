@@ -1,0 +1,24 @@
+{
+  "instances": [
+    {
+      "usmers": value,
+      "gender": value,
+      "patient_type": value,
+      "intubated": value,
+      "pneumonia": value,
+      "age": value,
+      "clasiffication": value,
+      "medical_type": value,
+      "diabetes": value,
+      "copd": value,
+      "asthma": value,
+      "hypertension": value,
+      "other_disease": value,
+      "cardiovascular": value,
+      "obesity": value,
+      "renal_chronic": value,
+      "tobacho": value,
+      "icu": value
+    }
+  ]
+}
