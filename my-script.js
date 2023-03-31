@@ -1,7 +1,3 @@
-const ENDPOINT_ID = "6567598456985092096";
-const PROJECT_ID = "my-project-1-ece-528";
-const INPUT_DATA_FILE = "path/to/data.json";
-
 function predict() {
   fetch(`https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict`, {
     method: 'POST',
@@ -12,6 +8,9 @@ function predict() {
     body: JSON.stringify(INPUT_DATA_FILE)
   })
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => {
+    const predictionElement = document.getElementById('prediction');
+    predictionElement.innerText = data.predicted_result;
+  })
   .catch(error => console.error(error));
 }
