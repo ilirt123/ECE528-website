@@ -1,11 +1,14 @@
 function predict() {
-  fetch(`https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict`, {
+  const endpointId = "6567598456985092096";
+  const projectId = "my-project-1-ece-528";
+  const inputDataFile = "path/to/data.json";
+
+  fetch('/predict', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${gcloud auth print-access-token}`,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(INPUT_DATA_FILE)
+    body: JSON.stringify({ endpointId, projectId, inputDataFile })
   })
   .then(response => response.json())
   .then(data => {
