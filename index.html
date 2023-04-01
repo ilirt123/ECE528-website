@@ -1,39 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My Website</title>
-  </head>
-  <body>
-    <h1>Predict</h1>
-    <div id="result"></div>
-    <form>
-      <label for="feature_column_a">Feature A:</label>
-      <input type="text" id="feature_column_a" name="feature_column_a"><br>
-      <label for="feature_column_b">Feature B:</label>
-      <input type="text" id="feature_column_b" name="feature_column_b"><br>
-      <button type="button" onclick="predict()">Predict</button>
-    </form>
-    <script>
-      function predict() {
-        const inputData = {
-          feature_column_a: document.getElementById('feature_column_a').value,
-          feature_column_b: document.getElementById('feature_column_b').value
-        };
+<head>
+	<title>My Website</title>
+</head>
+<body>
+	<h1>My Website</h1>
+	<form id="prediction-form">
+		<label for="feature_column_a">Feature A:</label>
+		<input type="text" id="feature_column_a" name="feature_column_a" required>
+		<br>
+		<label for="feature_column_b">Feature B:</label>
+		<input type="text" id="feature_column_b" name="feature_column_b" required>
+		<br>
+		<button type="submit">Predict</button>
+	</form>
+	<div id="prediction-result"></div>
 
-        fetch('/predict', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            instances: [inputData]
-          })
-        })
-        .then(response => response.json())
-        .then(result => {
-          document.getElementById('result').innerHTML = JSON.stringify(result);
-        });
-      }
-    </script>
-  </body>
+	<script>
+		const form = document.getElementById('prediction-form');
+		const resultDiv = document.getElementById('prediction-result');
+		form.addEventListener('submit', function(event) {
+			event.preventDefault();
+			const featureA = document.getElementById('feature_column_a').value;
+			const featureB = document.getElementById('feature_column_b').value;
+
+			const inputData = {
+				"instances": [
+					{"feature_column_a": featureA, "feature_column_b": featureB}
+				]
+			};
+
+			const endpointId = "6567598456985092096";
+			const projectId = "my-project-1-ece-528";
+			const accessToken = "YOUR_ACCESS_TOKEN";
+
+			const request = new XMLHttpRequest();
+			request.open('POST', `https://us-central1-aiplatform.googleapis.com/v1/projects/${projectId}/locations/us-central1/endpoints/${endpointId}:predict`);
+			request.setRequestHeader('Authorization', `Bearer ${accessToken}`);
+			request.setRequestHeader('Content-Type', 'application/json');
+			request.onload = function() {
+				if (request.status === 200) {
+					const response = JSON.parse(request.responseText);
+					const prediction = response.predictions[0];
+					resultDiv.innerText = `The predicted value is ${prediction}`;
+				} else {
+					resultDiv.innerText = 'Error';
+				}
+			};
+			request.onerror = function() {
+				resultDiv.innerText = 'Error';
+			};
+			request.send(JSON.stringify(inputData));
+		});
+	</script>
+</body>
 </html>
