@@ -1,53 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Machine Learning Prediction</title>
-</head>
-<body>
-  <h1>Machine Learning Prediction</h1>
-  <form>
-    <label for="feature_column_a">Feature Column A:</label>
-    <input type="text" id="feature_column_a" name="feature_column_a"><br><br>
-  
-    <label for="feature_column_b">Feature Column B:</label>
-    <input type="text" id="feature_column_b" name="feature_column_b"><br><br>
+  <head>
+    <title>My Website</title>
+  </head>
+  <body>
+    <h1>Predict</h1>
+    <div id="result"></div>
+    <form>
+      <label for="feature_column_a">Feature A:</label>
+      <input type="text" id="feature_column_a" name="feature_column_a"><br>
+      <label for="feature_column_b">Feature B:</label>
+      <input type="text" id="feature_column_b" name="feature_column_b"><br>
+      <button type="button" onclick="predict()">Predict</button>
+    </form>
+    <script>
+      function predict() {
+        const inputData = {
+          feature_column_a: document.getElementById('feature_column_a').value,
+          feature_column_b: document.getElementById('feature_column_b').value
+        };
 
-    <button type="button" onclick="predict()">Predict</button>
-  </form>
-
-  <div id="result"></div>
-
-  <script>
-    function predict() {
-      // Get the input values from the form
-      const featureColumnA = document.getElementById("feature_column_a").value;
-      const featureColumnB = document.getElementById("feature_column_b").value;
-
-      // Create the JSON object
-      const data = {
-        "instances": [
-          { "feature_column_a": featureColumnA, "feature_column_b": featureColumnB }
-        ]
-      };
-
-      // Send the request to the REST API
-      fetch("/predict", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(result => {
-        // Update the result element with the prediction
-        document.getElementById("result").innerHTML = "Prediction: " + result.predictions[0];
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    }
-  </script>
-</body>
+        fetch('/predict', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            instances: [inputData]
+          })
+        })
+        .then(response => response.json())
+        .then(result => {
+          document.getElementById('result').innerHTML = JSON.stringify(result);
+        });
+      }
+    </script>
+  </body>
 </html>
