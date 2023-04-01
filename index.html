@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Website</title>
-    <script src="path/to/my-script.js"></script>
+    <title>Vertex AI Endpoint Demo</title>
   </head>
   <body>
-    <button onclick="predict()">Predict</button>
-    <div id="prediction"></div>
-  </body>
-</html>
+    <h1>Vertex AI Endpoint Demo</h1>
+    <p>Enter your feature data:</p>
+    <form id="form">
+      <label for="feature1">Feature 1:</label>
+      <input type="text" name="feature1" id="feature1" required>
+      <br>
+      <label for="feature2">Feature 2:</label>
+      <input type="text" name="feature2" id="feature2" required>
+      <br>
+      <button type="submit">Predict</button>
+    </form>
+    <p id="result"></p>
+    <script>
+      const form = document.getElementById('form');
+      const result = document.getElementById('result');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const feature1 = document.getElementById('feature1').value;
+        const feature2 = document.getElementById('feature2').value;
+
+        // Make a POST request to the server to get the prediction
+        fetch('/predict', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            features: [
+              { feature_column_a: feature1, feature_column_b: feature2 }
+            ]
+          })
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          // Update the result element with the prediction result
+          result.innerHTML = `Prediction result: ${data}`;
