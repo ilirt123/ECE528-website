@@ -1,0 +1,32 @@
+name: Make prediction request
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: pip install requests
+      
+      - name: Make prediction request
+        run: |
+          URL="https://us-central1-aiplatform.googleapis.com/v1/projects/${{ secrets.PROJECT_ID }}/locations/us-central1/endpoints/${{ secrets.ENDPOINT_ID }}:predict"
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.ACCESS_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data "@${{ secrets.INPUT_DATA_FILE }}" \
+            "$URL"
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
