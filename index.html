@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>OAuth 2.0 Client ID Example</title>
-</head>
-<body>
-    <h1>OAuth 2.0 Client ID Example</h1>
-    <button id="authorize-button" onclick="authorize()">Authorize</button>
-    <script type="text/javascript">
-        // Client ID and API key from the Developer Console
-        var CLIENT_ID = '1044109562<html><head></head><body>
+<html><head></head><body>
 <script>
   var YOUR_CLIENT_ID = '1044109562554-3g13bflv9b0q9rbv0p2hthr5rotcujvv.apps.googleusercontent.com';
-  var YOUR_REDIRECT_URI = 'https://ilirt123.github.io/ECE528-website/index.html/';
+  var YOUR_REDIRECT_URI = 'Rhttps://ilirt123.github.io/ECE-528-website/index.html';
   var fragmentString = location.hash.substring(1);
 
   // Parse query string to see if page request is coming from OAuth 2.0 server.
@@ -87,46 +76,4 @@
 </script>
 
 <button onclick="trySampleRequest();">Try sample request</button>
-</body></html>554-3g13bflv9b0q9rbv0p2hthr5rotcujvv.apps.googleusercontent.com';
- 
-
-        // Array of API discovery doc URLs for APIs used by the app
-        var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-
-        // Authorization scopes required by the API; multiple scopes can be
-        // included, separated by spaces.
-        var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
-
-        function handleClientLoad() {
-            gapi.load('client:auth2', initClient);
-        }
-
-        function initClient() {
-            gapi.client.init({
-              
-                clientId: CLIENT_ID,
-                discoveryDocs: DISCOVERY_DOCS,
-                scope: SCOPES
-            }).then(function () {
-                console.log("Client initialized");
-            }, function (error) {
-                console.error("Error initializing client", error);
-            });
-        }
-
-        function authorize() {
-            gapi.auth2.getAuthInstance().signIn().then(function () {
-                console.log("User authorized");
-                var accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
-                console.log("Access token:", accessToken);
-            }, function (error) {
-                console.error("Error authorizing user", error);
-            });
-        }
-    </script>
-    <script async defer src="https://apis.google.com/js/api.js"
-            onload="this.onload=function(){};handleClientLoad()"
-            onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
-</body>
-</html>
+</body></html>
