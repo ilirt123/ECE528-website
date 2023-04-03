@@ -1,3 +1,6 @@
+const endpointId = "6567598456985092096";
+const projectId = "my-project-1-ece-528";
+
 function UserAction() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
