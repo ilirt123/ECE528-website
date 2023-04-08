@@ -1,0 +1,14 @@
+runtime: python38 # Runtime environment
+
+env: standard # App Engine environment type
+
+entrypoint: gunicorn -b :$PORT main:app # Entrypoint command
+
+runtime_config:
+  python_version: 3.8 # Python version
+
+env_variables:
+  MY_ENV_VAR: my_value # Environment variables
+
+manual_scaling:
+  instances: 1 # Number of instances
