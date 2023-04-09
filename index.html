@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CovidCare</title>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <script src="path/to/your/script.js"></script>
+    <button onclick="makePrediction()">Make Prediction</button>
+
+    <script>
+      const inputJSON = { "instances": [...] };
+      const ENDPOINT_ID = "6567598456985092096";
+      const PROJECT_ID = "my-project-1-ece-528";
+      
+      fetch(`https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${access_token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(inputJSON)
+      })
+      .then(response => response.json())
+      .then(data => console.log(data));
+    </script>
+    <button onclick="makePrediction()">Make Prediction</button>
+  </head>
+  <body>
+    <!-- rest of your HTML code here -->
+  </body>
+</html>
