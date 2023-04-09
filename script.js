@@ -1,5 +1,5 @@
 gapi.auth2.init({
-  client_id: 'YOUR_CLIENT_ID'
+  client_id: '1044109562554-3g13bflv9b0q9rbv0p2hthr5rotcujvv.apps.googleusercontent.com'
 });
 
 // Call this function to authenticate the user
