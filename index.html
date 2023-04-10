@@ -1,0 +1,38 @@
+<html>
+<head>
+</head>
+<body>
+  <script>
+    const endpointId = "6567598456985092096";
+    const projectId = "my-project-1-ece-528";
+
+    const inputData = {
+      "instances": [
+        {"usmers": "1", "medical_type": "1", "gender": "1", "patient_type": "1", "intubated": "1", 
+    "pneumonia": "2", "age": "50", "pregnant": "1", "diabetes": "1", "copd": "1", "asthma": "2",
+     "inmsupr": "2", "hypertension": "2", "other_disease": "2", "cardiovascular": "1", "obesity": "2",
+      "renal_chronic": "2", "tobacho": "1", "clasiffication": "3", "icu": "2"}
+      ]
+    }
+
+    const accessToken = "ACCESS_TOKEN_GOES_HERE";
+    const apiUrl = `https://us-central1-aiplatform.googleapis.com/v1/projects/${projectId}/locations/us-central1/endpoints/${endpointId}:predict`;
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(inputData)
+    };
+
+    function trySampleRequest() {
+      fetch(apiUrl, requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+    }
+  </script>
+  <button onclick="trySampleRequest()">Try sample request</button>
+</body>
+</html>
