@@ -29,9 +29,8 @@
         const PROJECT_ID = "sigma-bay-383123";
 
         const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict`;
-        const accessToken = await gapi.auth.getToken();
         const headers = {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${await getAccessToken()}`,
           "Content-Type": "application/json",
         };
         const options = {
@@ -44,6 +43,19 @@
 
         output.textContent = JSON.stringify(result, null, 2);
       });
+
+      // Retrieve the access token using the Google API client library
+      async function getAccessToken() {
+        await gapi.client.init({
+          clientId: "165300964105-q6jriij7jog3vpvnnpf4o5nkb8vv56ce.apps.googleusercontent.com",
+          scope: "https://www.googleapis.com/auth/cloud-platform",
+        });
+
+        const auth = gapi.auth2.getAuthInstance();
+        const user = auth.currentUser.get();
+        const authResponse = await user.reloadAuthResponse();
+        return authResponse.access_token;
+      }
     </script>
     <!-- Google API client library -->
     <script src="https://apis.google.com/js/api.js"></script>
