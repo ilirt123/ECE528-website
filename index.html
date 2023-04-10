@@ -1,31 +1,68 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CovidCare</title>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-    <script src="https://github.com/ilirt123/ECE528-website/blob/main/script.js"></script>
-    <button onclick="makePrediction()">Make Prediction</button>
-
-    <script>
-      const inputJSON = { "instances": [...] };
-      const ENDPOINT_ID = "6567598456985092096";
-      const PROJECT_ID = "my-project-1-ece-528";
-      
-      fetch(`https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${access_token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(inputJSON)
-      })
-      .then(response => response.json())
-      .then(data => console.log(data));
-    </script>
+    <title>My REST API Example</title>
+    <style>
+      /* CSS styles go here */
+    </style>
   </head>
   <body>
-    <!-- rest of your HTML code here -->
+    <h1>My REST API Example</h1>
+    <form id="my-form">
+      <label for="input-data">Input Data:</label>
+      <textarea id="input-data" name="input-data"></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="output"></div>
+
+    <script>
+      // JavaScript code goes here
+      const form = document.querySelector("#my-form");
+      const output = document.querySelector("#output");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const inputData = JSON.parse(document.querySelector("#input-data").value);
+
+        const ENDPOINT_ID = "2123390049700544512";
+        const PROJECT_ID = "sigma-bay-383123";
+
+        const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict`;
+        const accessToken = await gapi.auth.getToken();
+        const headers = {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        };
+        const options = {
+          method: "POST",
+          headers,
+          body: JSON.stringify({ instances: inputData }),
+        };
+        const response = await fetch(url, options);
+        const result = await response.json();
+
+        output.textContent = JSON.stringify(result, null, 2);
+      });
+    </script>
+    <!-- Google API client library -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+      // Initialize the Google API client library
+      function initClient() {
+        gapi.client.init({
+          apiKey: "YOUR_API_KEY",
+          clientId: "YOUR_CLIENT_ID",
+          discoveryDocs: [
+            "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
+          ],
+          scope: "https://www.googleapis.com/auth/drive.metadata.readonly",
+        });
+        gapi.client.load("drive", "v3", () => {
+          console.log("Google Drive API loaded");
+        });
+      }
+      gapi.load("client", initClient);
+    </script>
   </body>
 </html>
